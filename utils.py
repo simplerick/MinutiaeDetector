@@ -85,8 +85,11 @@ def match_points(points, points_pred, prob, tol=4):
     target = []
     pred = []
     for x1,y1 in points:
-        dist, x2, y2, i = find_nearest_point(x1,y1,points_pred, index=True)
         target.append(1)
+        if len(points_pred) == 0:
+            pred.append(0)
+            continue
+        dist, x2, y2, i = find_nearest_point(x1,y1,points_pred, index=True)
         if dist <= tol:
             pred.append(prob[i])
             points_pred[i] = [-1,-1]
